@@ -187,7 +187,12 @@ chrome(async (client) => {
                     td.eq(1).find('a').each((i, elem)=>{
                         let text = $(elem).text();
                         if(text !== '...'){
-                            film.info.genre.push(text);
+                            let match = $(elem).attr('href').match(/\/(\d+)\//);
+                            film.info.genre.push({
+                                'id':match[1],
+                                'url':resolveUrl($(elem).attr('href')),
+                                'name':text
+                            });
                         }
                     });
                     break;

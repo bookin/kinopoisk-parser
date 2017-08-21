@@ -33,6 +33,7 @@ Returns object:
         'slogan':'',
         'directors':[
             {
+                'id':'',
                 'url':'',
                 'name':''
             },
@@ -44,7 +45,7 @@ Returns object:
         'composer':[{},...],
         'painter':[{},...],
         'mounting':[{},...],
-        'genre':['','',...],
+        'genre':[{},...],
         'premiere_world':'',
         'premiere_rus':'',
         'premiere_ua':'',
