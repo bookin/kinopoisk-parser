@@ -7,7 +7,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const urlModule = require("url");
 
-const url = process.argv[3];
+const url = process.argv[2];
 let match = url.match(/\-(\d+)(?:$|\/)/g);
 const uid = match[1];
 
@@ -44,9 +44,23 @@ const replaceArray = function(replaceString, find, replace) {
     return replaceString;
 };
 
+const parsePeople = ($link)=>{
+    let response = false;
+    let text = $link.text();
+    if(text !== '...'){
+        let match = $link.attr('href').match(/\/(\d+)\//);
+        response = {
+            'id':match[1],
+            'url':resolveUrl($link.attr('href')),
+            'name':text
+        };
+    }
+    return response;
+};
+
 chrome(async (client) => {
     const {Network, Page, Runtime} = client;
-    
+
     try {
         await Network.enable();
         await Page.enable();
@@ -115,78 +129,57 @@ chrome(async (client) => {
                     break;
                 case 'режиссер':
                     td.eq(1).find('a').each((i, elem)=>{
-                        let text = $(elem).text();
-                        if(text !== '...'){
-                            film.info.directors.push({
-                                'url':resolveUrl($(elem).attr('href')),
-                                'name':text
-                            });
+                        let user = parsePeople($(elem));
+                        if(user){
+                            film.info.directors.push(user);
                         }
                     });
                     break;
                 case 'сценарий':
                     td.eq(1).find('a').each((i, elem)=>{
-                        let text = $(elem).text();
-                        if(text !== '...'){
-                            film.info.scenario.push({
-                                'url':resolveUrl($(elem).attr('href')),
-                                'name':text
-                            });
+                        let user = parsePeople($(elem));
+                        if(user){
+                            film.info.scenario.push(user);
                         }
                     });
                     break;
                 case 'продюсер':
                     td.eq(1).find('a').each((i, elem)=>{
-                        let text = $(elem).text();
-                        if(text !== '...'){
-                            film.info.producer.push({
-                                'url':resolveUrl($(elem).attr('href')),
-                                'name':text
-                            });
+                        let user = parsePeople($(elem));
+                        if(user){
+                            film.info.producer.push(user);
                         }
                     });
                     break;
                 case 'оператор':
                     td.eq(1).find('a').each((i, elem)=>{
-                        let text = $(elem).text();
-                        if(text !== '...'){
-                            film.info.operator.push({
-                                'url':resolveUrl($(elem).attr('href')),
-                                'name':text
-                            });
+                        let user = parsePeople($(elem));
+                        if(user){
+                            film.info.operator.push(user);
                         }
                     });
                     break;
                 case 'композитор':
                     td.eq(1).find('a').each((i, elem)=>{
-                        let text = $(elem).text();
-                        if(text !== '...'){
-                            film.info.composer.push({
-                                'url':resolveUrl($(elem).attr('href')),
-                                'name':text
-                            });
+                        let user = parsePeople($(elem));
+                        if(user){
+                            film.info.composer.push(user);
                         }
                     });
                     break;
                 case 'художник':
                     td.eq(1).find('a').each((i, elem)=>{
-                        let text = $(elem).text();
-                        if(text !== '...'){
-                            film.info.painter.push({
-                                'url':resolveUrl($(elem).attr('href')),
-                                'name':text
-                            });
+                        let user = parsePeople($(elem));
+                        if(user){
+                            film.info.painter.push(user);
                         }
                     });
                     break;
                 case 'монтаж':
                     td.eq(1).find('a').each((i, elem)=>{
-                        let text = $(elem).text();
-                        if(text !== '...'){
-                            film.info.mounting.push({
-                                'url':resolveUrl($(elem).attr('href')),
-                                'name':text
-                            });
+                        let user = parsePeople($(elem));
+                        if(user){
+                            film.info.mounting.push(user);
                         }
                     });
                     break;
@@ -208,11 +201,11 @@ chrome(async (client) => {
                     film.info.premiere_ua = getTime(td.eq(1).find('a').eq(0).text());
                     break;
                 case 'возраст':
-                    let match = td.eq(1).find('.ageLimit').attr('class').match(/age(\d+)/);
+                    match = td.eq(1).find('.ageLimit').attr('class').match(/age(\d+)/);
                     film.info.age = match[1] || null;
                     break;
                 case 'время':
-                    let match = td.eq(1).text().match(/(\d+)\D+(\d+:\d+)/);
+                    match = td.eq(1).text().match(/(\d+)\D+(\d+:\d+)/);
                     film.info.time = {
                         'minutes':match[1],
                         'hours':match[2]
@@ -224,13 +217,10 @@ chrome(async (client) => {
         });
 
         film.actors = [];
-        $('#actorList ul').eq(0).find('li.actors a').each((i, elem)=>{
-            let text = $(this).text();
-            if(text !== '...'){
-                film.info.actors.push({
-                    'url':resolveUrl($(this).attr('href')),
-                    'name':text
-                });
+        $('#actorList ul').eq(0).find('li[itemprop="actors"] a').each((i, elem)=>{
+            let user = parsePeople($(elem));
+            if(user){
+                film.actors.push(user);
             }
         });
 
