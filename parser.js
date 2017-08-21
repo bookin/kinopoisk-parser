@@ -8,7 +8,7 @@ const fs = require('fs');
 const urlModule = require("url");
 
 const url = process.argv[2];
-let match = url.match(/\-(\d+)(?:$|\/)/g);
+let match = url.match(/\-(\d+)(?:$|\/)/);
 const uid = match[1];
 
 let logPath = './tmp/'+uid+'.txt';
