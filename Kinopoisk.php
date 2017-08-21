@@ -18,7 +18,7 @@ class Kinopoisk
             "'{$url}'",
         ]);
         $exitCode = self::execute($command, null, $output, $output, 55);
-        return @json_decode($output, true)?:[];
+        return @json_decode($output, false)?:[];
     }
 
     /**
