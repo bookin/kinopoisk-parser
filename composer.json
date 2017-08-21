@@ -16,5 +16,11 @@
         "psr-4": {
             "bookin\\parser\\": ""
         }
-    }
+    },
+    "post-update-cmd": [
+        "npm update"
+    ],
+    "post-install-cmd": [
+        "npm install"
+    ]
 }
