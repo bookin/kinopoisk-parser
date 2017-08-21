@@ -64,6 +64,7 @@ chrome(async (client) => {
         film.id = uid;
         film.name = $('#headerFilm h1').text();
         film.original_name = $('#headerFilm span[itemprop="alternativeHeadline"]').text();
+        film.description = $('[itemprop="description"]').first().text();
         film.image = {
             'preview':$('.popupBigImage img[itemprop="image"]').attr('src'),
             'original':resolveUrl($('.popupBigImage').attr('href'))

@@ -17,6 +17,7 @@ Returns object:
     'id' : '',
     'name' : '',
     'original_name' : '',
+    'description' : '',
     'image' : {
         'preview' : '',
         'original' : '',
