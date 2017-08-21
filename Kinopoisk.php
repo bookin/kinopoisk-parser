@@ -9,7 +9,7 @@ class Kinopoisk
 
     /**
      * @param $url
-     * @return mixed
+     * @return \stdClass
      */
     public static function parseByUrl($url){
         $command = implode(' ', [
@@ -18,7 +18,7 @@ class Kinopoisk
             "'{$url}'",
         ]);
         $exitCode = self::execute($command, null, $output, $output, 55);
-        return @json_decode($output, false)?:[];
+        return @json_decode($output, false)?:new \stdClass();
     }
 
     /**
