@@ -184,7 +184,7 @@ chrome(async (client) => {
                     });
                     break;
                 case 'жанр':
-                    td.eq(1).find('a').each((i, elem)=>{
+                    td.eq(1).find('[itemprop="genre"] a').each((i, elem)=>{
                         let text = $(elem).text();
                         if(text !== '...'){
                             let match = $(elem).attr('href').match(/\/(\d+)\//);
