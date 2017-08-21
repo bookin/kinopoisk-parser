@@ -91,6 +91,7 @@ chrome(async (client) => {
             'premiere_world':'',
             'premiere_rus':'',
             'premiere_ua':'',
+            'age':'',
             'time':{
                 'minutes':'',
                 'hours':''
@@ -205,6 +206,10 @@ chrome(async (client) => {
                     break;
                 case 'премьера (Укр.)':
                     film.info.premiere_ua = getTime(td.eq(1).find('a').eq(0).text());
+                    break;
+                case 'возраст':
+                    let match = td.eq(1).find('.ageLimit').attr('class').match(/age(\d+)/);
+                    film.info.age = match[1] || null;
                     break;
                 case 'время':
                     let match = td.eq(1).text().match(/(\d+)\D+(\d+:\d+)/);

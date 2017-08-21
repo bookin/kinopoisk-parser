@@ -48,6 +48,7 @@ Returns object:
         'premiere_world':'',
         'premiere_rus':'',
         'premiere_ua':'',
+        'age':'',
         'time':{
             'minutes':'',
             'hours':''
