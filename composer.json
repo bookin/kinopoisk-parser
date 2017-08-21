@@ -18,10 +18,12 @@
             "bookin\\parser\\": ""
         }
     },
-    "post-update-cmd": [
-        "npm update"
-    ],
-    "post-install-cmd": [
-        "npm install"
-    ]
+    "scripts": {
+        "post-update-cmd": [
+            "npm update"
+        ],
+        "post-install-cmd": [
+            "npm install"
+        ]
+    }
 }
