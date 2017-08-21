@@ -14,7 +14,7 @@ class Kinopoisk
     public static function parseByUrl($url){
         $command = implode(' ', [
             'node',
-            'parser.js',
+            __DIR__.DIRECTORY_SEPARATOR.'parser.js',
             "'{$url}'",
         ]);
         $exitCode = self::execute($command, null, $output, $output, 55);
