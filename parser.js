@@ -207,7 +207,7 @@ chrome(async (client) => {
                     break;
                 case 'возраст':
                     match = td.eq(1).find('.ageLimit').attr('class').match(/age(\d+)/);
-                    film.info.age = match[1] || null;
+                    film.info.age = match[1]+'+' || null;
                     break;
                 case 'время':
                     match = td.eq(1).text().match(/(\d+)\D+(\d+:\d+)/);
