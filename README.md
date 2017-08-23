@@ -1,3 +1,7 @@
+[![Total Downloads](https://poser.pugx.org/bookin/kinopoisk-parser/downloads)](https://packagist.org/packages/bookin/kinopoisk-parser)
+[![Latest Stable Version](https://poser.pugx.org/bookin/kinopoisk-parser/v/stable)](https://packagist.org/packages/bookin/kinopoisk-parser)
+[![License](https://poser.pugx.org/bookin/kinopoisk-parser/license)](https://packagist.org/packages/bookin/kinopoisk-parser)
+
 - Install nodejs and npm
 - Install chrome: `sudo apt-get install google-chrome-stable`
 
